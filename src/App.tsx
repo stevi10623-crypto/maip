@@ -149,9 +149,9 @@ function App() {
           <p className="sub reveal d3">
             I'm a <b>Master AI Practitioner</b> — a real person who has spent the time mastering AI so you
             don't have to. Not a chatbot, but a consultant who puts that skill to work for you. I handle{' '}
-            <b>full-service legal research and document production</b>, verify every line myself, and
-            deliver finished work product ready for your name — so you walk in more prepared than the
-            other side. Nothing to learn, nothing to install, nothing about how you practice has to change.
+            <b>full-service legal research and document production</b>, with every citation checked
+            against its source, and stand behind the finished work product I hand you — ready for your
+            review and your name — so you walk in more prepared than the other side. Nothing to learn, nothing to install, nothing about how you practice has to change.
           </p>
           <div className="cta-row reveal d4">
             <a href="#contact">
@@ -166,7 +166,7 @@ function App() {
               <b>✓</b> A Master AI Practitioner — not a chatbot
             </span>
             <span>
-              <b>✓</b> Verified by me, never raw AI
+              <b>✓</b> Source-verified, never raw AI
             </span>
             <span>
               <b>✓</b> Filed under your name
@@ -205,7 +205,7 @@ function App() {
               </div>
               <div className="svc-li">
                 <span className="b">2</span>{' '}
-                <span>I do the work and verify every cite against the record.</span>
+                <span>I do the work, and every cite is verified against the record.</span>
               </div>
               <div className="svc-li">
                 <span className="b">3</span>{' '}
