@@ -139,7 +139,7 @@ function App() {
       <header>
         <div className="wrap">
           <div className="eyebrow reveal d1">
-            <span className="dot" /> A personal AI consultant for trial attorneys
+            <span className="dot" /> A personal AI consultant for attorneys
           </div>
           <h1 className="reveal d2">
             Don't be outsmarted
