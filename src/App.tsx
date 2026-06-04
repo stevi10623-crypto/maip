@@ -11,7 +11,16 @@ const SERVICES = [
   'Contract review & redlining',
 ]
 
+const SECURITY_POINTS = [
+  ['Private systems', 'Everything I handle stays on private, access-controlled systems — never email, never a public chatbot.'],
+  ['Client identity shielded', "When AI is used, your client's identity is shielded from any outside provider, so privilege and confidentiality stay intact."],
+  ['Encrypted transfer', 'Files move over a secure, invite-only connection — not email attachments left on servers you don’t control.'],
+  ['Best model for the job', 'Each task is routed to the AI model best suited to it, and upgraded as better models ship — you always get current, top-tier work without lifting a finger.'],
+  ['You stay in control', 'Everything is draft work product for your independent review. Nothing is ever filed without you.'],
+]
+
 function App() {
+  const [view, setView] = useState<'home' | 'security'>('home')
   const [sent, setSent] = useState(false)
 
   useEffect(() => {
@@ -34,27 +43,99 @@ function App() {
       io.observe(el)
     })
     return () => io.disconnect()
-  }, [])
+  }, [view])
 
-  return (
-    <>
-      {/* NAV */}
-      <nav>
-        <div className="wrap nav-in">
-          <div className="brand">
-            <img
-              src="/MAIP_logo.svg"
-              alt="MAIP — Master AI Practitioner"
-              style={{ height: 76, width: 'auto', display: 'block' }}
-            />
-          </div>
-          <a href="#contact" className="nav-cta">
+  const Nav = (
+    <nav>
+      <div className="wrap nav-in">
+        <div className="brand" style={{ cursor: 'pointer' }} onClick={() => setView('home')}>
+          <img
+            src="/MAIP_logo.svg"
+            alt="MAIP — Master AI Practitioner"
+            style={{ height: 76, width: 'auto', display: 'block' }}
+          />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+          <a
+            onClick={() => setView(view === 'security' ? 'home' : 'security')}
+            style={{ cursor: 'pointer', fontSize: 14, fontWeight: 600, color: 'var(--parch-dim)' }}
+          >
+            {view === 'security' ? 'Home' : 'Security'}
+          </a>
+          <a href="#contact" onClick={() => setView('home')} className="nav-cta">
             Request a consultation
           </a>
         </div>
-      </nav>
+      </div>
+    </nav>
+  )
 
-      {/* HERO — exact client copy */}
+  // ---------- SECURITY TAB ----------
+  if (view === 'security') {
+    return (
+      <>
+        {Nav}
+        <header style={{ paddingBottom: 0 }}>
+          <div className="wrap">
+            <div className="eyebrow reveal d1">
+              <span className="dot" /> For the few who like the details
+            </div>
+            <h1 className="reveal d2" style={{ fontSize: 'clamp(28px,3.6vw,44px)' }}>
+              How your matters are <em>kept safe.</em>
+            </h1>
+            <p className="sub reveal d3">
+              Plain answers, no jargon. Here's how confidentiality, security, and the AI itself are
+              handled behind the scenes — so you never have to think about it.
+            </p>
+          </div>
+        </header>
+
+        <section>
+          <div className="wrap">
+            <div className="svc-card core" style={{ maxWidth: 820 }}>
+              <div className="tagline">● Security &amp; confidentiality</div>
+              <h3>The short version</h3>
+              {SECURITY_POINTS.map(([title, body]) => (
+                <div className="svc-li" key={title} style={{ flexDirection: 'column', gap: 4 }}>
+                  <span style={{ color: 'var(--gold-bright)', fontWeight: 600 }}>{title}</span>
+                  <span style={{ color: 'var(--parch-dim)' }}>{body}</span>
+                </div>
+              ))}
+            </div>
+            <p className="lead" style={{ marginTop: 32 }}>
+              Want the technical detail? I'm happy to walk your IT person or partner through it.{' '}
+              <a href="#contact" onClick={() => setView('home')} style={{ color: 'var(--gold-bright)' }}>
+                Get in touch →
+              </a>
+            </p>
+          </div>
+        </section>
+
+        <footer>
+          <div className="wrap" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 18, width: '100%' }}>
+            <div style={{ fontSize: 11.5, lineHeight: 1.65, maxWidth: 920, color: 'var(--parch-dim)' }}>
+              <b style={{ color: 'var(--parch)' }}>Disclaimer.</b> MAIP (Master AI Practitioner) is{' '}
+              <b>not a law firm</b> and does not provide legal advice or representation. I provide
+              AI-assisted legal-research and document-preparation services to licensed attorneys, who
+              work under their own professional judgment and remain solely responsible for the
+              representation of their clients. All deliverables are <b>drafts</b> subject to the
+              attorney's independent review and verification; every output must be verified before any
+              filing or use. Nothing on this site creates an attorney-client relationship, and no result
+              is guaranteed.
+            </div>
+            <div>© 2026 MAIP · Master AI Practitioner</div>
+          </div>
+        </footer>
+      </>
+    )
+  }
+
+  // ---------- HOME ----------
+  return (
+    <>
+      {Nav}
+
+      {/* HERO — win-focused */}
       <header>
         <div className="wrap">
           <div className="eyebrow reveal d1">
@@ -67,9 +148,9 @@ function App() {
           </h1>
           <p className="sub reveal d3">
             A <b>personal AI consultant</b> providing <b>full-service legal research and document
-            production.</b> You hand me the matter — I deliver finished, verified work product, ready for
-            your name. Nothing to learn, nothing to install, and nothing about how you practice has to
-            change.
+            production</b> — so you walk in more prepared than the other side. You hand me the matter; I
+            deliver finished, verified work product, ready for your name. Nothing to learn, nothing to
+            install, nothing about how you practice has to change.
           </p>
           <div className="cta-row reveal d4">
             <a href="#contact">
@@ -101,8 +182,9 @@ function App() {
             Full-service legal research &amp; <em>document production.</em>
           </h2>
           <p className="lead">
-            Built for criminal defense and litigation — and ready for the rest of your practice. You
-            stay the attorney; I take the time-consuming work off your desk.
+            Everything you need to walk into court more prepared than the opposition. Built for criminal
+            defense and litigation — and ready for the rest of your practice. You stay the attorney; I
+            take the time-consuming research and drafting off your desk.
           </p>
           <div className="svc">
             <div className="svc-card core">
@@ -128,9 +210,15 @@ function App() {
                 <span className="b">3</span>{' '}
                 <span>You get finished, filing-ready work product — ready for your name.</span>
               </div>
-              <div className="svc-li">
-                <span className="b">✓</span>{' '}
-                <span>Everything stays private and confidential — never email, never a public chatbot.</span>
+              <div className="svc-li" style={{ marginTop: 6 }}>
+                <span className="b">↦</span>{' '}
+                <span>
+                  Curious about confidentiality &amp; security?{' '}
+                  <a onClick={() => setView('security')} style={{ cursor: 'pointer', color: 'var(--gold-bright)' }}>
+                    See the Security tab
+                  </a>
+                  .
+                </span>
               </div>
             </div>
           </div>
