@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type FormEvent } from 'react'
 
 const SERVICES = [
   'Trial opening statements & full trial-prep packages',
@@ -12,20 +12,48 @@ const SERVICES = [
 ]
 
 const SECURITY_POINTS = [
-  ['Private systems', 'Everything I handle stays on private, access-controlled systems — never email, never a public chatbot.'],
-  ['Client identity shielded', "When AI is used, your client's identity is shielded from any outside provider, so privilege and confidentiality stay intact."],
-  ['Encrypted transfer', 'Files move over a secure, invite-only connection — not email attachments left on servers you don’t control.'],
-  ['Best model for the job', 'Each task is routed to the AI model best suited to it, and upgraded as better models ship — you always get current, top-tier work without lifting a finger.'],
+  ['On private systems', 'Everything I handle stays on private, access-controlled systems — never email, never a public chatbot.'],
+  ['Files move over a private network', 'Documents travel over a private, encrypted, invite-only connection (Tailscale) — point-to-point, not email attachments left on servers you don’t control.'],
+  ['Best model for the job — the AI router', 'Each task is routed to the AI model best suited to it, and upgraded as better models ship, so you always get current, top-tier work.'],
   ['You stay in control', 'Everything is draft work product for your independent review. Nothing is ever filed without you.'],
 ]
+
+// STEGAL Shield demo content (inline spans preserved as HTML)
+const SHIELD_PROTECTED =
+  'Draft a demand letter for our client <span class="tok">[CLIENT_1]</span> (SSN <span class="tok">[ID_1]</span>) regarding breach by <span class="tok">[ORG_1]</span>, damages of <span class="pii">$1.2M</span>.'
+const SHIELD_RAW =
+  'Draft a demand letter for our client <span class="pii">Sarah Jenkins</span> (SSN <span class="pii">000-24-9876</span>) regarding breach by <span class="pii">Apex Corp.</span>, damages of <span class="pii">$1.2M</span>.'
 
 function App() {
   const [view, setView] = useState<'home' | 'security'>('home')
   const [sent, setSent] = useState(false)
+  const [shieldOn, setShieldOn] = useState(true)
+  const [sending, setSending] = useState(false)
+  const [err, setErr] = useState(false)
+
+  async function submitForm(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = e.currentTarget
+    setSending(true)
+    setErr(false)
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/stevi10623@gmail.com', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      })
+      if (!res.ok) throw new Error('failed')
+      setSent(true)
+    } catch {
+      setErr(true)
+    } finally {
+      setSending(false)
+    }
+  }
 
   useEffect(() => {
     const els = Array.from(
-      document.querySelectorAll('section .kicker, section .h2, .svc, .stats, .contact'),
+      document.querySelectorAll('section .kicker, section .h2, .svc, .stats, .shield, .contact'),
     ) as HTMLElement[]
     const io = new IntersectionObserver(
       (entries) =>
@@ -84,16 +112,69 @@ function App() {
               How your matters are <em>kept safe.</em>
             </h1>
             <p className="sub reveal d3">
-              Plain answers, no jargon. Here's how confidentiality, security, and the AI itself are
-              handled behind the scenes — so you never have to think about it.
+              Plain answers, no jargon — the STEGAL Shield, secure transfer, the AI router, and
+              confidentiality, all handled behind the scenes so you never have to think about it.
             </p>
           </div>
         </header>
 
+        {/* STEGAL SHIELD demo */}
+        <section>
+          <div className="wrap">
+            <div className="kicker">The STEGAL Shield</div>
+            <h2 className="h2">
+              The AI never sees <em>who your client is.</em>
+            </h2>
+            <p className="lead">
+              Before a matter ever reaches an AI model, the STEGAL Shield swaps every identifier — names,
+              SSNs, companies — for a placeholder. The model only ever sees{' '}
+              <span className="tok">[CLIENT_1]</span>; the real details are restored on my secured systems
+              afterward. Flip it off to see the difference.
+            </p>
+            <div className="shield">
+              <div className="shield-top">
+                <div className="shield-title">
+                  <span className="ic">🛡</span> STEGAL Shield
+                </div>
+                <div className="toggle" onClick={() => setShieldOn((v) => !v)}>
+                  <span>{shieldOn ? 'Shield ON' : 'Shield OFF'}</span>
+                  <div className={shieldOn ? 'sw' : 'sw off'} />
+                </div>
+              </div>
+              <div className="shield-grid">
+                <div className="col">
+                  <h4>
+                    ① What you send <span className="live">● your office</span>
+                  </h4>
+                  <div className="doc">
+                    Draft a demand letter for our client <span className="pii">Sarah Jenkins</span> (SSN{' '}
+                    <span className="pii">000-24-9876</span>) regarding breach by{' '}
+                    <span className="pii">Apex Corp.</span>, damages of <span className="pii">$1.2M</span>.
+                  </div>
+                </div>
+                <div className="col out">
+                  <h4>
+                    ② What the AI actually sees{' '}
+                    <span className="live" style={{ color: shieldOn ? 'var(--jade)' : 'var(--rose)' }}>
+                      {shieldOn ? '● protected' : '● exposed'}
+                    </span>
+                  </h4>
+                  <div className="doc" dangerouslySetInnerHTML={{ __html: shieldOn ? SHIELD_PROTECTED : SHIELD_RAW }} />
+                </div>
+              </div>
+            </div>
+            <p className="note">
+              <b>↳</b> The AI provider only ever receives <span className="tok">[CLIENT_1]</span> — never
+              your client. Privilege and confidentiality stay intact.
+            </p>
+          </div>
+        </section>
+
+        {/* The rest — transfer, router, control */}
         <section>
           <div className="wrap">
             <div className="svc-card core" style={{ maxWidth: 820 }}>
-              <div className="tagline">● Security &amp; confidentiality</div>
+              <div className="tagline">● Confidentiality, transfer &amp; the AI</div>
               <h3>The short version</h3>
               {SECURITY_POINTS.map(([title, body]) => (
                 <div className="svc-li" key={title} style={{ flexDirection: 'column', gap: 4 }}>
@@ -135,7 +216,7 @@ function App() {
     <>
       {Nav}
 
-      {/* HERO — win-focused */}
+      {/* HERO */}
       <header>
         <div className="wrap">
           <div className="eyebrow reveal d1">
@@ -151,7 +232,8 @@ function App() {
             don't have to. Not a chatbot, but a consultant who puts that skill to work for you. I handle{' '}
             <b>full-service legal research and document production</b>, with every citation checked
             against its source, and stand behind the finished work product I hand you — ready for your
-            review and your name — so you walk in more prepared than the other side. Nothing to learn, nothing to install, nothing about how you practice has to change.
+            review and your name — so you walk in more prepared than the other side. Nothing to learn,
+            nothing to install, nothing about how you practice has to change.
           </p>
           <div className="cta-row reveal d4">
             <a href="#contact">
@@ -214,7 +296,7 @@ function App() {
               <div className="svc-li" style={{ marginTop: 6 }}>
                 <span className="b">↦</span>{' '}
                 <span>
-                  Curious about confidentiality &amp; security?{' '}
+                  Curious about confidentiality, the STEGAL Shield &amp; security?{' '}
                   <a onClick={() => setView('security')} style={{ cursor: 'pointer', color: 'var(--gold-bright)' }}>
                     See the Security tab
                   </a>
@@ -249,28 +331,31 @@ function App() {
               </div>
               <div>
                 {!sent ? (
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault()
-                      setSent(true)
-                    }}
-                  >
+                  <form onSubmit={submitForm}>
+                    <input type="hidden" name="_subject" value="New MAIP inquiry" />
+                    <input type="hidden" name="_template" value="table" />
+                    <input type="hidden" name="_captcha" value="false" />
                     <label>Name</label>
-                    <input required placeholder="Jane Counsel" />
+                    <input name="name" required placeholder="Jane Counsel" />
                     <label>Work email</label>
-                    <input required type="email" placeholder="jane@yourfirm.com" />
+                    <input name="email" required type="email" placeholder="jane@yourfirm.com" />
                     <label>Practice area</label>
-                    <select>
+                    <select name="practice_area">
                       <option>Criminal defense &amp; litigation</option>
                       <option>Civil litigation</option>
                       <option>Contracts &amp; transactional</option>
                       <option>Solo / small firm — general</option>
                     </select>
                     <label>What would you want handled?</label>
-                    <textarea placeholder="e.g. A sentencing memo with a Guidelines rebuttal, due in two weeks…" />
-                    <button className="btn btn-gold" type="submit">
-                      Send message →
+                    <textarea name="message" placeholder="e.g. A sentencing memo with a Guidelines rebuttal, due in two weeks…" />
+                    <button className="btn btn-gold" type="submit" disabled={sending}>
+                      {sending ? 'Sending…' : 'Send message →'}
                     </button>
+                    {err && (
+                      <p className="form-note" style={{ color: 'var(--rose)' }}>
+                        Something went wrong — please email me directly at stevi10623@gmail.com.
+                      </p>
+                    )}
                     <p className="form-note">I reply by email, usually same day.</p>
                   </form>
                 ) : (
