@@ -139,7 +139,7 @@ function App() {
       <header>
         <div className="wrap">
           <div className="eyebrow reveal d1">
-            <span className="dot" /> A personal AI consultant for attorneys
+            <span className="dot" /> A personal AI consultant for Attorneys
           </div>
           <h1 className="reveal d2">
             Don't be outsmarted
@@ -147,11 +147,11 @@ function App() {
             by <em>the opposition.</em>
           </h1>
           <p className="sub reveal d3">
-            I'm a <b>real person</b> — a personal consultant who puts AI to work for you, not a chatbot
-            you have to wrangle. I handle <b>full-service legal research and document production</b>,
-            verify every line myself, and deliver finished work product ready for your name — so you walk
-            in more prepared than the other side. Nothing to learn, nothing to install, nothing about how
-            you practice has to change.
+            I'm a <b>Master AI Practitioner</b> — a real person who has spent the time mastering AI so you
+            don't have to. Not a chatbot, but a consultant who puts that skill to work for you. I handle{' '}
+            <b>full-service legal research and document production</b>, verify every line myself, and
+            deliver finished work product ready for your name — so you walk in more prepared than the
+            other side. Nothing to learn, nothing to install, nothing about how you practice has to change.
           </p>
           <div className="cta-row reveal d4">
             <a href="#contact">
@@ -163,7 +163,7 @@ function App() {
           </div>
           <div className="trust reveal d5">
             <span>
-              <b>✓</b> A real person — not a chatbot
+              <b>✓</b> A Master AI Practitioner — not a chatbot
             </span>
             <span>
               <b>✓</b> Verified by me, never raw AI
