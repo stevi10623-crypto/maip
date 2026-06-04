@@ -147,10 +147,11 @@ function App() {
             by <em>the opposition.</em>
           </h1>
           <p className="sub reveal d3">
-            A <b>personal AI consultant</b> providing <b>full-service legal research and document
-            production</b> — so you walk in more prepared than the other side. You hand me the matter; I
-            deliver finished, verified work product, ready for your name. Nothing to learn, nothing to
-            install, nothing about how you practice has to change.
+            I'm a <b>real person</b> — a personal consultant who puts AI to work for you, not a chatbot
+            you have to wrangle. I handle <b>full-service legal research and document production</b>,
+            verify every line myself, and deliver finished work product ready for your name — so you walk
+            in more prepared than the other side. Nothing to learn, nothing to install, nothing about how
+            you practice has to change.
           </p>
           <div className="cta-row reveal d4">
             <a href="#contact">
@@ -162,10 +163,10 @@ function App() {
           </div>
           <div className="trust reveal d5">
             <span>
-              <b>✓</b> Done for you — no software to learn
+              <b>✓</b> A real person — not a chatbot
             </span>
             <span>
-              <b>✓</b> Verified work product, never raw AI
+              <b>✓</b> Verified by me, never raw AI
             </span>
             <span>
               <b>✓</b> Filed under your name
