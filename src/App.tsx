@@ -12,8 +12,9 @@ const SERVICES = [
 ]
 
 const SECURITY_POINTS = [
-  ['On private systems', 'Everything I handle stays on private, access-controlled systems — never email, never a public chatbot.'],
-  ['Files move over a private network', 'Documents travel over a private, encrypted, invite-only connection (Tailscale) — point-to-point, not email attachments left on servers you don’t control.'],
+  ['It’s all optional', 'These protections are simply available if you (or your client) want them. Plenty of attorneys just email me their files — that’s perfectly fine. I work whichever way you prefer.'],
+  ['On private systems', 'Everything I handle stays on private, access-controlled systems and is kept off any public AI.'],
+  ['Secure transfer — if you want it', 'Documents can travel over a private, encrypted, invite-only connection (Tailscale) instead of email — your choice, per client or per matter.'],
   ['Best model for the job — the AI router', 'Each task is routed to the AI model best suited to it, and upgraded as better models ship, so you always get current, top-tier work.'],
   ['You stay in control', 'Everything is draft work product for your independent review. Nothing is ever filed without you.'],
 ]
@@ -112,8 +113,9 @@ function App() {
               How your matters are <em>kept safe.</em>
             </h1>
             <p className="sub reveal d3">
-              Plain answers, no jargon — the STEGAL Shield, secure transfer, the AI router, and
-              confidentiality, all handled behind the scenes so you never have to think about it.
+              Plain answers, no jargon. <b>It's all optional</b> — if you'd rather just email me your
+              files, that works perfectly. These are simply here for the clients who want the extra
+              protection: the STEGAL Shield, secure transfer, and the AI router.
             </p>
           </div>
         </header>
