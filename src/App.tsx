@@ -81,15 +81,11 @@ function App() {
           <img src="/MAIP_logo.svg" alt="MAIP — Master AI Practitioner" className="brand-logo" />
         </div>
         <div className="nav-right">
-          <a
-            onClick={() => setView(view === 'security' ? 'home' : 'security')}
-            style={{ cursor: 'pointer', fontSize: 14, fontWeight: 600, color: 'var(--parch-dim)' }}
-          >
+          <a onClick={() => setView(view === 'security' ? 'home' : 'security')} className="nav-link">
             {view === 'security' ? 'Home' : 'Security'}
           </a>
           <a href="#contact" onClick={() => setView('home')} className="nav-cta">
-            <span className="cta-full">Request a consultation</span>
-            <span className="cta-short">Consult</span>
+            Request a consultation
           </a>
         </div>
       </div>
