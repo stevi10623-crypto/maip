@@ -78,13 +78,9 @@ function App() {
     <nav>
       <div className="wrap nav-in">
         <div className="brand" style={{ cursor: 'pointer' }} onClick={() => setView('home')}>
-          <img
-            src="/MAIP_logo.svg"
-            alt="MAIP — Master AI Practitioner"
-            style={{ height: 76, width: 'auto', display: 'block' }}
-          />
+          <img src="/MAIP_logo.svg" alt="MAIP — Master AI Practitioner" className="brand-logo" />
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+        <div className="nav-right">
           <a
             onClick={() => setView(view === 'security' ? 'home' : 'security')}
             style={{ cursor: 'pointer', fontSize: 14, fontWeight: 600, color: 'var(--parch-dim)' }}
@@ -92,7 +88,8 @@ function App() {
             {view === 'security' ? 'Home' : 'Security'}
           </a>
           <a href="#contact" onClick={() => setView('home')} className="nav-cta">
-            Request a consultation
+            <span className="cta-full">Request a consultation</span>
+            <span className="cta-short">Consult</span>
           </a>
         </div>
       </div>

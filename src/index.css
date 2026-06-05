@@ -49,6 +49,18 @@ nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px);
 .nav-cta { font-size: 14px; font-weight: 600; padding: 11px 20px; border: 1px solid var(--gold);
   border-radius: 999px; color: var(--gold-bright); transition: 0.25s; }
 .nav-cta:hover { background: var(--gold); color: var(--ink); }
+.brand-logo { height: 64px; width: auto; display: block; }
+.nav-right { display: flex; align-items: center; gap: 22px; }
+.cta-short { display: none; }
+@media (max-width: 600px) {
+  .wrap { padding: 0 16px; }
+  .nav-in { height: 62px; }
+  .brand-logo { height: 36px; }
+  .nav-right { gap: 12px; }
+  .nav-cta { padding: 8px 13px; font-size: 13px; }
+  .cta-full { display: none; }
+  .cta-short { display: inline; }
+}
 
 /* HERO */
 header { padding: 96px 0 70px; position: relative; }
